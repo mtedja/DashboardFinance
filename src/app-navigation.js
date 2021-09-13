@@ -31,25 +31,5 @@ export const navigation = [
         path: '/userlist'
       }
     ]
-  },
-  {
-    text: 'DASHBOARD',
-    icon: 'user',
-    items: [
-      {
-        text: 'DashboardUser',
-        path: '/usernew'
-      }
-    ]
-  },
-  {
-    text: 'FEATURE',
-    icon: 'user',
-    items: [
-      {
-        text: 'FEATTree',
-        path: '/userlist'
-      }
-    ]
   }
 ];
