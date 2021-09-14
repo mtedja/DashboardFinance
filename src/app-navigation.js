@@ -31,5 +31,15 @@ export const navigation = [
         path: '/userlist'
       }
     ]
+  }, 
+  {
+    text: 'FEATURE TREE',
+    icon: 'menu',
+    items: [
+      {
+        text: 'Feature Tree',
+        path: '/feature-tree'
+      }
+    ]
   }
 ];

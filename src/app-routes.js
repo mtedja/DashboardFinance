@@ -1,5 +1,5 @@
 import { withNavigationWatcher } from './contexts/navigation';
-import { HomePage, TasksPage, ProfilePage, UserlistPage, UsernewPage } from './pages';
+import { HomePage, TasksPage, ProfilePage, UserlistPage, UsernewPage, FeatureTreePage } from './pages';
 
 const routes = [
   // {
@@ -21,6 +21,10 @@ const routes = [
   {
     path: '/usernew',
     component: UsernewPage
+  }, 
+  {
+    path: '/feature-tree',
+    component: FeatureTreePage
   }
 ];
 

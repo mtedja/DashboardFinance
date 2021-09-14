@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { Switch } from 'devextreme-react/switch';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +12,8 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import axios from 'axios';
+import base64 from 'base-64';
+import utf8 from 'utf8';
 import './usernew.scss';
 
 import TextBox from 'devextreme-react/text-box';
@@ -47,7 +50,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const UserList = () => {
+const UserNew = () => {
 
   const host = 'https://back.member.dst.technology';
 
@@ -69,7 +72,7 @@ const UserList = () => {
     let requestNew = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*F246D21236BFE4995F0DE501E8252F2A9A8976FC"
+      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077"
     };
 
     const fetchData = async () => {
@@ -80,25 +83,38 @@ const UserList = () => {
           if (status == 1) {
             const idUsr = JSON.stringify(responseNew.data.status.id);
             setIdUser(idUsr);
-            console.log(idUsr)
 
             let requestDetail = {
               "userindex": "USER21070000001",
               "username": "gunatah",
-              "usertoken": "*F246D21236BFE4995F0DE501E8252F2A9A8976FC",
+              "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
               "tempuserid": idUsr
             }
 
             axios.post(host + '/api/user/detail', requestDetail)
               .then((responseDetail) => {
-                setdetailUserId(responseDetail.data.result.tempuser[0].tempuserid);
+
+                //Encrypt ID
+                const userid = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserid);
+                const iduserutf8 = utf8.encode(userid);
+                const iduserencode = base64.encode(iduserutf8);
+
+                //Set switch is Active
+                const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
+                if (isActive == 1) {
+                  setdetailUserIsActive(true);
+                } else if (isActive == 0) {
+                  setdetailUserIsActive(false);
+                }
+
+                setdetailUserId(iduserencode);
                 setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
                 setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
                 setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
                 setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
                 setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
                 setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
-                setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
+                // setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
                 setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
                 setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
                 setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
@@ -155,37 +171,34 @@ const UserList = () => {
     let requestStore = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*F246D21236BFE4995F0DE501E8252F2A9A8976FC",
-      "tableuserid" : idUser,
-      "tableusername" : detailUserName,
-      "tableusernick" : detailUserNick,
-      "tableuseremail" : detailUserEmail,
-      "tableuserinitial" : detailUserInitial,
-      "tableusernoteinternal" : detailUserNoteInternal,
-      "tableuseruserrole" : ""
+      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
+      "tableuserid": idUser,
+      "tableusername": detailUserName,
+      "tableusernick": detailUserNick,
+      "tableuseremail": detailUserEmail,
+      "tableuserinitial": detailUserInitial,
+      "tableusernoteinternal": detailUserNoteInternal,
+      "tableuseruserrole": ""
     }
 
     const fetchDataStore = async () => {
       await axios.post(host + '/api/user/store', requestStore)
         .then((responseStore) => {
           const status = JSON.stringify(responseStore.data.status.status);
-          console.log(status);
 
           if (status == 1) {
             const idUsr = JSON.stringify(responseStore.data.status.id);
             setIdUser(idUsr);
-            console.log("here" + idUsr);
 
             let requestDetail = {
               "userindex": "USER21070000001",
               "username": "gunatah",
-              "usertoken": "*F246D21236BFE4995F0DE501E8252F2A9A8976FC",
+              "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
               "tempuserid": idUsr
             }
 
             axios.post(host + '/api/user/detail', requestDetail)
               .then((responseDetail) => {
-                console.log(responseDetail.data);
                 setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
                 setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
                 setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
@@ -211,10 +224,10 @@ const UserList = () => {
         <div className={'dx-card responsive-paddings'}>
           <div className="dx-fieldset">
             <div className="dx-field">
+              <div className="dx-field-label">TempUserId</div>
               <div className="dx-field-value">
                 <TextBox value={detailUserId.toString()}
                   disabled={true}
-                  visible={false}
                 />
               </div>
             </div>
@@ -272,11 +285,17 @@ const UserList = () => {
             </div>
             <div className="dx-field">
               <div className="dx-field-label">TempUserIsActive</div>
-              <div className="dx-field-value">
-                <TextBox value={detailUserIsActive.toString()}
+              <div className="dx-field-label">
+                {/* <TextBox value={detailUserIsActive.toString()}
                   onValueChange={(event) => {
                     handleChange(event, "isactive");
-                  }} />
+                  }} /> */}
+                <Switch
+                  value={detailUserIsActive}
+                  onValueChange={(event) => {
+                    handleChange(event, "isactive");
+                  }}
+                />
               </div>
             </div>
             <div className="dx-field">
@@ -352,4 +371,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UserNew;

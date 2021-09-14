@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from 'react';
-import { Grid, Table, TableHeaderRow, PagingPanel } from '@devexpress/dx-react-grid-material-ui';
+import { Grid, Table, TableHeaderRow, PagingPanel, SearchPanel, Toolbar } from '@devexpress/dx-react-grid-material-ui';
 import { Card } from '@material-ui/core';
 import { Button } from 'devextreme-react/button';
-import { PagingState, IntegratedPaging } from '@devexpress/dx-react-grid';
+import { PagingState, IntegratedPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import axios from 'axios';
 import './userlist.scss';
 
@@ -26,7 +26,7 @@ const UserList = () => {
     let request = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*F246D21236BFE4995F0DE501E8252F2A9A8976FC"
+      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077"
     };
 
     const fetchData = async () => {
@@ -41,6 +41,9 @@ const UserList = () => {
       rows={rows}
       columns={columns}
     >
+      <SearchState />
+      <IntegratedFiltering />
+      
       <PagingState
         defaultCurrentPage={0}
         pageSize={5}
@@ -50,6 +53,8 @@ const UserList = () => {
       <Table />
       <TableHeaderRow />
 
+      <Toolbar />
+      <SearchPanel />
       <PagingPanel />
     </Grid>
   );
