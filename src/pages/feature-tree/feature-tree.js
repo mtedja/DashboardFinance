@@ -1,22 +1,10 @@
 import { React, useState, useEffect } from 'react';
-import TreeList, { Column, ColumnChooser, HeaderFilter, SearchPanel, Selection, Lookup } from 'devextreme-react/tree-list';
+import TreeList, { Column, SearchPanel } from 'devextreme-react/tree-list';
 import { Card } from '@material-ui/core';
 import axios from 'axios';
-import { employees, priorities, tasks } from './../../data';
 import './feature-tree.scss';
 
 const FeatureTree = () => {
-
-  const dataSourceOptions = {
-    store: tasks.map(function (task) {
-      employees.forEach(function (employee) {
-        if (task.Task_Assigned_Employee_ID === employee.ID) {
-          task.Task_Assigned_Employee = employee;
-        }
-      });
-      return task;
-    })
-  };
 
   const [result, setResult] = useState([]);
 
@@ -26,7 +14,7 @@ const FeatureTree = () => {
     let request = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077"
+      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430"
     };
 
     const fetchData = async () => {
@@ -42,15 +30,15 @@ const FeatureTree = () => {
       <div className={'content-block'}>
         <div className={'dx-card responsive-paddings'}>
           <TreeList
-            dataSource={dataSourceOptions}
+            dataSource={result}
             columnAutoWidth={true}
-            keyExpr="Task_ID"
-            parentIdExpr="Task_Parent_ID"
+            keyExpr="tablefeaturecode"
+            parentIdExpr="tablefeatureparentcode"
             id="tasks"
           >
             <SearchPanel visible={true} width={250} />
 
-            <Column dataField="Task_Subject" width={500} />
+            <Column dataField="tablefeaturedescription" width={500} />
           </TreeList>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { Switch } from 'devextreme-react/switch';
+// import { Switch } from 'devextreme-react/switch';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +11,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import notify from 'devextreme/ui/notify';
 import axios from 'axios';
 import base64 from 'base-64';
 import utf8 from 'utf8';
@@ -72,7 +73,7 @@ const UserNew = () => {
     let requestNew = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077"
+      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430"
     };
 
     const fetchData = async () => {
@@ -87,7 +88,7 @@ const UserNew = () => {
             let requestDetail = {
               "userindex": "USER21070000001",
               "username": "gunatah",
-              "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
+              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
               "tempuserid": idUsr
             }
 
@@ -100,12 +101,12 @@ const UserNew = () => {
                 const iduserencode = base64.encode(iduserutf8);
 
                 //Set switch is Active
-                const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
-                if (isActive == 1) {
-                  setdetailUserIsActive(true);
-                } else if (isActive == 0) {
-                  setdetailUserIsActive(false);
-                }
+                // const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
+                // if (isActive == 1) {
+                //   setdetailUserIsActive(true);
+                // } else if (isActive == 0) {
+                //   setdetailUserIsActive(false);
+                // }
 
                 setdetailUserId(iduserencode);
                 setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
@@ -114,7 +115,7 @@ const UserNew = () => {
                 setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
                 setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
                 setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
-                // setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
+                setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
                 setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
                 setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
                 setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
@@ -171,7 +172,7 @@ const UserNew = () => {
     let requestStore = {
       "userindex": "USER21070000001",
       "username": "gunatah",
-      "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
+      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -185,15 +186,76 @@ const UserNew = () => {
       await axios.post(host + '/api/user/store', requestStore)
         .then((responseStore) => {
           const status = JSON.stringify(responseStore.data.status.status);
+          console.log('My status : ' + status);
 
           if (status == 1) {
             const idUsr = JSON.stringify(responseStore.data.status.id);
             setIdUser(idUsr);
+            console.log('Im here with iduser : ' + idUsr);
 
             let requestDetail = {
               "userindex": "USER21070000001",
               "username": "gunatah",
-              "usertoken": "*E9737409E1590CAF136F98E973FE8F172EFC8077",
+              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+              "tempuserid": idUsr
+            }
+
+            axios.post(host + '/api/user/detail', requestDetail)
+              .then((responseDetail) => {
+                setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
+                setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
+                setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
+                setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
+                setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
+                setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
+                setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
+                setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
+                setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
+                setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
+                setdetailUserCreateUsername(responseDetail.data.result.tempuser[0].tempusercreateusername);
+              })
+
+            handleClose();
+            notify('The user was saved successfully.', 'success');
+
+          } else if (status == 0) {
+            handleClose();
+            notify('The user was not saved. Later this is the Message', 'error');
+          }
+        })
+    }
+    fetchDataStore();
+  }
+
+  const handleSaveAndNew = () => {
+    let requestStore = {
+      "userindex": "USER21070000001",
+      "username": "gunatah",
+      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+      "tableuserid": idUser,
+      "tableusername": detailUserName,
+      "tableusernick": detailUserNick,
+      "tableuseremail": detailUserEmail,
+      "tableuserinitial": detailUserInitial,
+      "tableusernoteinternal": detailUserNoteInternal,
+      "tableuseruserrole": ""
+    }
+
+    const fetchDataStore = async () => {
+      await axios.post(host + '/api/user/store', requestStore)
+        .then((responseStore) => {
+          const status = JSON.stringify(responseStore.data.status.status);
+          console.log('My status : ' + status);
+
+          if (status == 0) {
+            const idUsr = JSON.stringify(responseStore.data.status.id);
+            setIdUser(idUsr);
+            console.log('Im here with iduser : ' + idUsr);
+
+            let requestDetail = {
+              "userindex": "USER21070000001",
+              "username": "gunatah",
+              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
               "tempuserid": idUsr
             }
 
@@ -215,6 +277,10 @@ const UserNew = () => {
         })
     }
     fetchDataStore();
+
+    handleClose();
+
+    window.location.reload();
   }
 
   return (
@@ -286,16 +352,16 @@ const UserNew = () => {
             <div className="dx-field">
               <div className="dx-field-label">TempUserIsActive</div>
               <div className="dx-field-label">
-                {/* <TextBox value={detailUserIsActive.toString()}
+                <TextBox value={detailUserIsActive.toString()}
                   onValueChange={(event) => {
                     handleChange(event, "isactive");
-                  }} /> */}
-                <Switch
+                  }} />
+                {/* <Switch
                   value={detailUserIsActive}
                   onValueChange={(event) => {
                     handleChange(event, "isactive");
                   }}
-                />
+                /> */}
               </div>
             </div>
             <div className="dx-field">
@@ -350,7 +416,7 @@ const UserNew = () => {
               </ListItemIcon>
               <ListItemText primary="Save" />
             </StyledMenuItem>
-            <StyledMenuItem>
+            <StyledMenuItem onClick={handleSaveAndNew}>
               <ListItemIcon>
                 <SaveAltIcon fontSize="small" />
               </ListItemIcon>
