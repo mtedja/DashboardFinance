@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Form, {
   Item,
   Label,
@@ -15,7 +15,6 @@ import { useAuth } from '../../contexts/auth';
 import './login-form.scss';
 
 export default function LoginForm() {
-  const history = useHistory();
   const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
   const formData = useRef({});
@@ -31,10 +30,6 @@ export default function LoginForm() {
       notify(result.message, 'error', 2000);
     }
   }, [signIn]);
-
-  const onCreateAccountClick = useCallback(() => {
-    history.push('/create-account');
-  }, [history]);
 
   return (
     <form className={'login-form'} onSubmit={onSubmit}>
@@ -83,13 +78,6 @@ export default function LoginForm() {
             <Link to={'/reset-password'}>Forgot password?</Link>
           </div>
         </Item>
-        <ButtonItem>
-          <ButtonOptions
-            text={'Create an account'}
-            width={'100%'}
-            onClick={onCreateAccountClick}
-          />
-        </ButtonItem>
       </Form>
     </form>
   );
