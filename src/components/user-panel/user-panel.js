@@ -25,18 +25,21 @@ export default function UserPanel({ menuMode }) {
     }
   ]), [signOut]);
 
+  console.log(user);
+
   return (
     <div className={'user-panel'}>
       <div className={'user-info'}>
         <div className={'image-container'}>
           <div
             style={{
-              background: `url(${user.avatarUrl}) no-repeat #fff`,
+              // background: `url(${user.avatarUrl}) no-repeat #fff`,
+              background: `url(https://img.icons8.com/office/16/000000/user.png) no-repeat #fff`,
               backgroundSize: 'cover'
             }}
             className={'user-image'} />
         </div>
-        <div className={'user-name'}>{user.email}</div>
+        <div className={'user-name'}>{user.tableusernick}</div>
       </div>
 
       {menuMode === 'context' && (

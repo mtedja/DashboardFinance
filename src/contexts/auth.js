@@ -7,19 +7,20 @@ function AuthProvider(props) {
 
   useEffect(() => {
     (async function () {
-      const result = await getUser();
+      const result = await getUser(user);
       if (result.isOk) {
         setUser(result.data);
       }
 
       setLoading(false);
     })();
-  }, []);
+  }, [user]);
 
   const signIn = useCallback(async (email, password) => {
     const result = await sendSignInRequest(email, password);
     if (result.isOk) {
       setUser(result.data);
+      sessionStorage.setItem('tableusernick', result.data.tableusernick);
     }
 
     return result;

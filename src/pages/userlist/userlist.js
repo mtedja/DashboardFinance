@@ -3,10 +3,13 @@ import { Grid, Table, TableHeaderRow, PagingPanel, SearchPanel, Toolbar } from '
 import { Card } from '@material-ui/core';
 import { Button } from 'devextreme-react/button';
 import { PagingState, IntegratedPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
+import { useAuth } from '../../contexts/auth';
 import axios from 'axios';
 import './userlist.scss';
 
 const UserList = () => {
+
+  const { user } = useAuth();
 
   const host = 'https://back.member.dst.technology';
 
@@ -24,9 +27,9 @@ const UserList = () => {
 
   useEffect(() => {
     let request = {
-      "userindex": "USER21070000001",
-      "username": "gunatah",
-      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430"
+      "userindex": user.tableuserindex,
+      "username": user.tableusername,
+      "usertoken": user.tableusertoken
     };
 
     const fetchData = async () => {

@@ -11,6 +11,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SaveIcon from '@material-ui/icons/Save';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { useAuth } from '../../contexts/auth';
 import notify from 'devextreme/ui/notify';
 import axios from 'axios';
 import base64 from 'base-64';
@@ -53,6 +54,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const UserNew = () => {
 
+  const { user } = useAuth();
+
   const host = 'https://back.member.dst.technology';
 
   const [idUser, setIdUser] = useState([]);
@@ -71,9 +74,9 @@ const UserNew = () => {
 
   useEffect(() => {
     let requestNew = {
-      "userindex": "USER21070000001",
-      "username": "gunatah",
-      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430"
+      "userindex": user.tableuserindex,
+      "username": user.tableusername,
+      "usertoken": user.tableusertoken
     };
 
     const fetchData = async () => {
@@ -86,9 +89,9 @@ const UserNew = () => {
             setIdUser(idUsr);
 
             let requestDetail = {
-              "userindex": "USER21070000001",
-              "username": "gunatah",
-              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+              "userindex": user.tableuserindex,
+              "username": user.tableusername,
+              "usertoken": user.tableusertoken,
               "tempuserid": idUsr
             }
 
@@ -229,9 +232,9 @@ const UserNew = () => {
 
   const handleSaveAndNew = () => {
     let requestStore = {
-      "userindex": "USER21070000001",
-      "username": "gunatah",
-      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+      "userindex": user.tableuserindex,
+      "username": user.tableusername,
+      "usertoken": user.tableusertoken,
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -253,9 +256,9 @@ const UserNew = () => {
             console.log('Im here with iduser : ' + idUsr);
 
             let requestDetail = {
-              "userindex": "USER21070000001",
-              "username": "gunatah",
-              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+              "userindex": user.tableuserindex,
+              "username": user.tableusername,
+              "usertoken": user.tableusertoken,
               "tempuserid": idUsr
             }
 

@@ -34,7 +34,7 @@ export const navigation = [
   }, 
   {
     text: 'FEATURE TREE',
-    icon: 'menu',
+    icon: 'contentlayout',
     items: [
       {
         text: 'Feature Tree',

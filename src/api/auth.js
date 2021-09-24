@@ -1,14 +1,36 @@
 import defaultUser from '../utils/default-user';
+import axios from 'axios';
 
 export async function signIn(email, password) {
   try {
     // Send request
     console.log(email, password);
 
-    return {
-      isOk: true,
-      data: defaultUser
+    const host = 'https://back.member.dst.technology';
+
+    let request = {
+      "usernameemail": email,
+      "userpassword": password
     };
+
+    const response = await axios.post(host + '/api/auth/signin', request);
+
+    if (response.data.status.status === 1) {
+      return {
+        isOk: true,
+        data: response.data.result.userinfo
+      };
+    } else if (response.data.status.status === 0) {
+      const code = response.data.status.code;
+
+      if (code === '005005015015') {
+        const msg = "System couldn't find Combination of user name / email and password";
+        return {
+          isOk: false,
+          message: msg
+        };
+      }
+    }
   }
   catch {
     return {
@@ -18,13 +40,13 @@ export async function signIn(email, password) {
   }
 }
 
-export async function getUser() {
+export async function getUser(user) {
   try {
     // Send request
 
     return {
       isOk: true,
-      data: defaultUser
+      data: user
     };
   }
   catch {
