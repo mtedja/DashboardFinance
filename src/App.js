@@ -13,16 +13,19 @@ import UnauthenticatedContent from './UnauthenticatedContent';
 
 function App() {
   const { user, loading } = useAuth();
+  let userNick = localStorage.length;
 
   if (loading) {
     return <LoadPanel visible={true} />;
   }
 
+  console.log(userNick);
+
   if (user) {
     // console.log(user);
     return <Content />;
   }
-  // if (sessionStorage.getItem('tableusernick') !== 'undefined') {
+  // if (userNick === 1) {
   //   // console.log(user);
   //   return <Content />;
   // }
