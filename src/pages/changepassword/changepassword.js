@@ -53,11 +53,11 @@ const ChangePassword = () => {
           console.log(responsePass);
           const status = JSON.stringify(responsePass.data.status.status);
 
-          if (status == 1) {
+          if (status === 1) {
 
             notify('The user was saved successfully.', 'success');
 
-          } else if (status == 0) {
+          } else if (status === 0) {
             notify('The user was not saved. Later this is the Message', 'error');
           }
         })

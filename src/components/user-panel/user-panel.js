@@ -40,7 +40,7 @@ export default function UserPanel({ menuMode }) {
             className={'user-image'} />
         </div>
         <div className={'user-name'}>{user.tableusernick}</div>
-        {/* <div className={'user-name'}>{sessionStorage.getItem('tableusernick')}</div> */}
+        {/* <div className={'user-name'}>{localStorage.getItem('tableusernick')}</div> */}
       </div>
 
       {menuMode === 'context' && (
