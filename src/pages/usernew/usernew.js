@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-// import { Switch } from 'devextreme-react/switch';
+import { Switch } from 'devextreme-react/switch';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -104,12 +104,12 @@ const UserNew = () => {
                 const iduserencode = base64.encode(iduserutf8);
 
                 //Set switch is Active
-                // const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
-                // if (isActive == 1) {
-                //   setdetailUserIsActive(true);
-                // } else if (isActive == 0) {
-                //   setdetailUserIsActive(false);
-                // }
+                const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
+                if (isActive == 1) {
+                  setdetailUserIsActive(true);
+                } else if (isActive == 0) {
+                  setdetailUserIsActive(false);
+                }
 
                 setdetailUserId(iduserencode);
                 setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
@@ -190,6 +190,7 @@ const UserNew = () => {
         .then((responseStore) => {
           const status = JSON.stringify(responseStore.data.status.status);
           console.log('My status : ' + status);
+          console.log(responseStore)
 
           if (status == 1) {
             const idUsr = JSON.stringify(responseStore.data.status.id);
@@ -355,16 +356,17 @@ const UserNew = () => {
             <div className="dx-field">
               <div className="dx-field-label">TempUserIsActive</div>
               <div className="dx-field-label">
-                <TextBox value={detailUserIsActive.toString()}
+                {/* <TextBox value={detailUserIsActive.toString()}
                   onValueChange={(event) => {
                     handleChange(event, "isactive");
-                  }} />
-                {/* <Switch
+                  }} /> */}
+                <Switch
                   value={detailUserIsActive}
+                  disabled
                   onValueChange={(event) => {
                     handleChange(event, "isactive");
                   }}
-                /> */}
+                />
               </div>
             </div>
             <div className="dx-field">
