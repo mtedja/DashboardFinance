@@ -25,7 +25,7 @@ export default function UserPanel({ menuMode }) {
     }
   ]), [signOut]);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className={'user-panel'}>
@@ -40,6 +40,7 @@ export default function UserPanel({ menuMode }) {
             className={'user-image'} />
         </div>
         <div className={'user-name'}>{user.tableusernick}</div>
+        {/* <div className={'user-name'}>{sessionStorage.getItem('tableusernick')}</div> */}
       </div>
 
       {menuMode === 'context' && (

@@ -22,6 +22,10 @@ function App() {
     // console.log(user);
     return <Content />;
   }
+  // if (sessionStorage.getItem('tableusernick') !== 'undefined') {
+  //   // console.log(user);
+  //   return <Content />;
+  // }
 
   return <UnauthenticatedContent />;
 }

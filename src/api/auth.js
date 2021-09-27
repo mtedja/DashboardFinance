@@ -4,7 +4,7 @@ import axios from 'axios';
 export async function signIn(email, password) {
   try {
     // Send request
-    console.log(email, password);
+    // console.log(email, password);
 
     const host = 'https://back.member.dst.technology';
 
@@ -16,6 +16,7 @@ export async function signIn(email, password) {
     const response = await axios.post(host + '/api/auth/signin', request);
 
     if (response.data.status.status === 1) {
+      sessionStorage.setItem('tableusernick', response.data.result.userinfo.tableusernick)
       return {
         isOk: true,
         data: response.data.result.userinfo

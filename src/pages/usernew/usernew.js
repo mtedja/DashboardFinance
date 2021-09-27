@@ -173,9 +173,9 @@ const UserNew = () => {
 
   const handleSave = () => {
     let requestStore = {
-      "userindex": "USER21070000001",
-      "username": "gunatah",
-      "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+      "userindex": user.tableuserindex,
+      "username": user.tableusername,
+      "usertoken": user.tableusertoken,
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -197,9 +197,9 @@ const UserNew = () => {
             console.log('Im here with iduser : ' + idUsr);
 
             let requestDetail = {
-              "userindex": "USER21070000001",
-              "username": "gunatah",
-              "usertoken": "*E82E70836D1D20566BB8CD9508451EED71F5E430",
+              "userindex": user.tableuserindex,
+              "username": user.tableusername,
+              "usertoken": user.tableusertoken,
               "tempuserid": idUsr
             }
 

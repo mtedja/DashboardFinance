@@ -20,7 +20,7 @@ function AuthProvider(props) {
     const result = await sendSignInRequest(email, password);
     if (result.isOk) {
       setUser(result.data);
-      sessionStorage.setItem('tableusernick', result.data.tableusernick);
+      // sessionStorage.setItem('tableusernick', result.data.tableusernick);
     }
 
     return result;
@@ -28,6 +28,7 @@ function AuthProvider(props) {
 
   const signOut = useCallback(() => {
     setUser();
+    sessionStorage.clear();
   }, []);
 
 

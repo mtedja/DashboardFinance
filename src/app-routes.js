@@ -1,16 +1,16 @@
 import { withNavigationWatcher } from './contexts/navigation';
-// import { HomePage, TasksPage, ProfilePage, UserlistPage, UsernewPage, FeatureTreePage } from './pages';
-import { HomePage, UserlistPage, UsernewPage, FeatureTreePage } from './pages';
+// import { HomePage, TasksPage, ProfilePage, UserlistPage, UsernewPage, FeatureTreePage, ChangepasswordPage } from './pages';
+import { HomePage, ProfilePage, UserlistPage, UsernewPage, FeatureTreePage, ChangepasswordPage } from './pages';
 
 const routes = [
   // {
   //   path: '/tasks',
   //   component: TasksPage
   // },
-  // {
-  //   path: '/profile',
-  //   component: ProfilePage
-  // },
+  {
+    path: '/profile',
+    component: ProfilePage
+  },
   {
     path: '/home',
     component: HomePage
@@ -26,6 +26,10 @@ const routes = [
   {
     path: '/feature-tree',
     component: FeatureTreePage
+  }, 
+  {
+    path: '/changepassword',
+    component: ChangepasswordPage
   }
 ];
 
