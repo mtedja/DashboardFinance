@@ -76,7 +76,7 @@ const UserNew = () => {
     let requestNew = {
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
-      "usertoken": localStorage.getItem('tableusernick')
+      "usertoken": localStorage.getItem('tableusertoken')
     };
 
     const fetchData = async () => {
@@ -91,7 +91,7 @@ const UserNew = () => {
             let requestDetail = {
               "userindex": localStorage.getItem('tableuserindex'),
               "username": localStorage.getItem('tableusername'),
-              "usertoken": localStorage.getItem('tableusernick'),
+              "usertoken": localStorage.getItem('tableusertoken'),
               "tempuserid": idUsr
             }
 
@@ -175,7 +175,7 @@ const UserNew = () => {
     let requestStore = {
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
-      "usertoken": localStorage.getItem('tableusernick'),
+      "usertoken": localStorage.getItem('tableusertoken'),
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -200,7 +200,7 @@ const UserNew = () => {
             let requestDetail = {
               "userindex": localStorage.getItem('tableuserindex'),
               "username": localStorage.getItem('tableusername'),
-              "usertoken": localStorage.getItem('tableusernick'),
+              "usertoken": localStorage.getItem('tableusertoken'),
               "tempuserid": idUsr
             }
 
@@ -235,7 +235,7 @@ const UserNew = () => {
     let requestStore = {
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
-      "usertoken": localStorage.getItem('tableusernick'),
+      "usertoken": localStorage.getItem('tableusertoken'),
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -259,7 +259,7 @@ const UserNew = () => {
             let requestDetail = {
               "userindex": localStorage.getItem('tableuserindex'),
               "username": localStorage.getItem('tableusername'),
-              "usertoken": localStorage.getItem('tableusernick'),
+              "usertoken": localStorage.getItem('tableusertoken'),
               "tempuserid": idUsr
             }
 

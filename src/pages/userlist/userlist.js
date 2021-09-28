@@ -32,7 +32,7 @@ const UserList = () => {
       // "usertoken": user.tableusertoken
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
-      "usertoken": localStorage.getItem('tableusernick')
+      "usertoken": localStorage.getItem('tableusertoken')
     };
     console.log(request);
 
