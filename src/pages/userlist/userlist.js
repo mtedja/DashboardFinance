@@ -3,13 +3,13 @@ import { Grid, Table, TableHeaderRow, PagingPanel, SearchPanel, Toolbar } from '
 import { Card } from '@material-ui/core';
 import { Button } from 'devextreme-react/button';
 import { PagingState, IntegratedPaging, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
-import { useAuth } from '../../contexts/auth';
+// import { useAuth } from '../../contexts/auth';
 import axios from 'axios';
 import './userlist.scss';
 
 const UserList = () => {
 
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const host = 'https://back.member.dst.technology';
 
@@ -27,10 +27,14 @@ const UserList = () => {
 
   useEffect(() => {
     let request = {
-      "userindex": user.tableuserindex,
-      "username": user.tableusername,
-      "usertoken": user.tableusertoken
+      // "userindex": user.tableuserindex,
+      // "username": user.tableusername,
+      // "usertoken": user.tableusertoken
+      "userindex": localStorage.getItem('tableuserindex'),
+      "username": localStorage.getItem('tableusername'),
+      "usertoken": localStorage.getItem('tableusernick')
     };
+    console.log(request);
 
     const fetchData = async () => {
       const response = await axios.post(host + '/api/user/list', request);

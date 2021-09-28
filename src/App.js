@@ -21,14 +21,14 @@ function App() {
 
   console.log(userNick);
 
-  if (user) {
-    // console.log(user);
-    return <Content />;
-  }
-  // if (userNick === 1) {
+  // if (user) {
   //   // console.log(user);
   //   return <Content />;
   // }
+  if (userNick >= 1) {
+    // console.log(user);
+    return <Content />;
+  }
 
   return <UnauthenticatedContent />;
 }

@@ -74,9 +74,9 @@ const UserNew = () => {
 
   useEffect(() => {
     let requestNew = {
-      "userindex": user.tableuserindex,
-      "username": user.tableusername,
-      "usertoken": user.tableusertoken
+      "userindex": localStorage.getItem('tableuserindex'),
+      "username": localStorage.getItem('tableusername'),
+      "usertoken": localStorage.getItem('tableusernick')
     };
 
     const fetchData = async () => {
@@ -89,9 +89,9 @@ const UserNew = () => {
             setIdUser(idUsr);
 
             let requestDetail = {
-              "userindex": user.tableuserindex,
-              "username": user.tableusername,
-              "usertoken": user.tableusertoken,
+              "userindex": localStorage.getItem('tableuserindex'),
+              "username": localStorage.getItem('tableusername'),
+              "usertoken": localStorage.getItem('tableusernick'),
               "tempuserid": idUsr
             }
 
@@ -173,9 +173,9 @@ const UserNew = () => {
 
   const handleSave = () => {
     let requestStore = {
-      "userindex": user.tableuserindex,
-      "username": user.tableusername,
-      "usertoken": user.tableusertoken,
+      "userindex": localStorage.getItem('tableuserindex'),
+      "username": localStorage.getItem('tableusername'),
+      "usertoken": localStorage.getItem('tableusernick'),
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -198,9 +198,9 @@ const UserNew = () => {
             console.log('Im here with iduser : ' + idUsr);
 
             let requestDetail = {
-              "userindex": user.tableuserindex,
-              "username": user.tableusername,
-              "usertoken": user.tableusertoken,
+              "userindex": localStorage.getItem('tableuserindex'),
+              "username": localStorage.getItem('tableusername'),
+              "usertoken": localStorage.getItem('tableusernick'),
               "tempuserid": idUsr
             }
 
@@ -233,9 +233,9 @@ const UserNew = () => {
 
   const handleSaveAndNew = () => {
     let requestStore = {
-      "userindex": user.tableuserindex,
-      "username": user.tableusername,
-      "usertoken": user.tableusertoken,
+      "userindex": localStorage.getItem('tableuserindex'),
+      "username": localStorage.getItem('tableusername'),
+      "usertoken": localStorage.getItem('tableusernick'),
       "tableuserid": idUser,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
@@ -257,9 +257,9 @@ const UserNew = () => {
             console.log('Im here with iduser : ' + idUsr);
 
             let requestDetail = {
-              "userindex": user.tableuserindex,
-              "username": user.tableusername,
-              "usertoken": user.tableusertoken,
+              "userindex": localStorage.getItem('tableuserindex'),
+              "username": localStorage.getItem('tableusername'),
+              "usertoken": localStorage.getItem('tableusernick'),
               "tempuserid": idUsr
             }
 

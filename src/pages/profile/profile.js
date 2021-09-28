@@ -3,16 +3,19 @@ import './profile.scss';
 import { Card } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import KeyIcon from '@material-ui/icons/VpnKey';
-import { useAuth } from '../../contexts/auth';
+// import { useAuth } from '../../contexts/auth';
 import Form from 'devextreme-react/form';
 
 export default function Profile() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const users = {
-    Index: user.tableuserindex,
-    Username: user.tableusername,
-    Usernick: user.tableusernick,
+    // Index: user.tableuserindex,
+    // Username: user.tableusername,
+    // Usernick: user.tableusernick,
+    Index: localStorage.getItem('tableuserindex'),
+    Username: localStorage.getItem('tableusername'),
+    Usernick: localStorage.getItem('tableusernick'),
   };
 
   return (
@@ -36,8 +39,9 @@ export default function Profile() {
             labelLocation={'top'}
             colCountByScreen={colCountByScreen}
           />
-        </div>
-        <div className={'content-block dx-card responsive-paddings'}>
+          <br/>
+          <br/>
+          <br/>
           <a href="#/changepassword">
             <Button
               aria-controls="customized-menu"

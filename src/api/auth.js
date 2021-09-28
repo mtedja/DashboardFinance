@@ -16,7 +16,10 @@ export async function signIn(email, password) {
     const response = await axios.post(host + '/api/auth/signin', request);
 
     if (response.data.status.status === 1) {
+      localStorage.setItem('tableuserindex', response.data.result.userinfo.tableuserindex)
+      localStorage.setItem('tableusername', response.data.result.userinfo.tableusername)
       localStorage.setItem('tableusernick', response.data.result.userinfo.tableusernick)
+      localStorage.setItem('tableusertoken', response.data.result.userinfo.tableusertoken)
       return {
         isOk: true,
         data: response.data.result.userinfo
