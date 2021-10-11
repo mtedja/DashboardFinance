@@ -20,7 +20,7 @@ const routes = [
     component: UserlistPage
   }, 
   {
-    path: '/usernew',
+    path: '/usernew/:id',
     component: UsernewPage
   }, 
   {

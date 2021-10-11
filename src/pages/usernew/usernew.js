@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import { Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Switch } from 'devextreme-react/switch';
@@ -52,7 +53,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const UserNew = () => {
+const UserNew = (props) => {
 
   const { user } = useAuth();
 
@@ -72,59 +73,104 @@ const UserNew = () => {
   const [detailUserCreateTimestamp, setdetailUserCreateTimestamp] = useState([]);
   const [detailUserCreateUsername, setdetailUserCreateUsername] = useState([]);
 
+  // useEffect(() => {
+  //   let requestNew = {
+  //     "userindex": localStorage.getItem('tableuserindex'),
+  //     "username": localStorage.getItem('tableusername'),
+  //     "usertoken": localStorage.getItem('tableusertoken')
+  //   };
+
+  //   const fetchData = async () => {
+  //     await axios.post(host + '/api/user/new', requestNew)
+  //       .then((responseNew) => {
+  //         const status = JSON.stringify(responseNew.data.status.status);
+
+  //         if (status == 1) {
+  //           const idUsr = JSON.stringify(responseNew.data.status.id);
+  //           setIdUser(idUsr);
+
+  //           let requestDetail = {
+  //             "userindex": localStorage.getItem('tableuserindex'),
+  //             "username": localStorage.getItem('tableusername'),
+  //             "usertoken": localStorage.getItem('tableusertoken'),
+  //             "tempuserid": idUsr
+  //           }
+
+  //           axios.post(host + '/api/user/detail', requestDetail)
+  //             .then((responseDetail) => {
+
+  //               //Encrypt ID
+  //               const userid = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserid);
+  //               const iduserutf8 = utf8.encode(userid);
+  //               const iduserencode = base64.encode(iduserutf8);
+
+  //               //Set switch is Active
+  //               const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
+  //               if (isActive == 1) {
+  //                 setdetailUserIsActive(true);
+  //               } else if (isActive == 0) {
+  //                 setdetailUserIsActive(false);
+  //               }
+
+  //               setdetailUserId(iduserencode);
+  //               setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
+  //               setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
+  //               setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
+  //               setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
+  //               setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
+  //               setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
+  //               setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
+  //               setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
+  //               setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
+  //               setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
+  //               setdetailUserCreateUsername(responseDetail.data.result.tempuser[0].tempusercreateusername);
+  //             })
+  //         }
+  //       })
+  //   }
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
-    let requestNew = {
+
+    //Decrypt ID
+    const userid = props.match.params.id;
+    const iduserutf8 = base64.decode(userid);
+    const iduserdecode = utf8.decode(iduserutf8);
+
+    let requestDetail = {
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
-      "usertoken": localStorage.getItem('tableusertoken')
-    };
+      "usertoken": localStorage.getItem('tableusertoken'),
+      "tempuserid": iduserdecode
+    }
 
     const fetchData = async () => {
-      await axios.post(host + '/api/user/new', requestNew)
-        .then((responseNew) => {
-          const status = JSON.stringify(responseNew.data.status.status);
 
-          if (status == 1) {
-            const idUsr = JSON.stringify(responseNew.data.status.id);
-            setIdUser(idUsr);
+      console.log('here');
+      await axios.post(host + '/api/user/detail', requestDetail)
+        .then((responseDetail) => {
 
-            let requestDetail = {
-              "userindex": localStorage.getItem('tableuserindex'),
-              "username": localStorage.getItem('tableusername'),
-              "usertoken": localStorage.getItem('tableusertoken'),
-              "tempuserid": idUsr
-            }
-
-            axios.post(host + '/api/user/detail', requestDetail)
-              .then((responseDetail) => {
-
-                //Encrypt ID
-                const userid = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserid);
-                const iduserutf8 = utf8.encode(userid);
-                const iduserencode = base64.encode(iduserutf8);
-
-                //Set switch is Active
-                const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
-                if (isActive == 1) {
-                  setdetailUserIsActive(true);
-                } else if (isActive == 0) {
-                  setdetailUserIsActive(false);
-                }
-
-                setdetailUserId(iduserencode);
-                setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
-                setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
-                setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
-                setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
-                setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
-                setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
-                setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
-                setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
-                setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
-                setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
-                setdetailUserCreateUsername(responseDetail.data.result.tempuser[0].tempusercreateusername);
-              })
+          //Set switch is Active
+          const isActive = JSON.stringify(responseDetail.data.result.tempuser[0].tempuserisactive);
+          if (isActive == 1) {
+            setdetailUserIsActive(true);
+          } else if (isActive == 0) {
+            setdetailUserIsActive(false);
           }
+
+          setdetailUserId(props.match.params.id);
+          setdetailUserIndex(responseDetail.data.result.tempuser[0].tempuserindex);
+          setdetailUserName(responseDetail.data.result.tempuser[0].tempusername);
+          setdetailUserNick(responseDetail.data.result.tempuser[0].tempusernick);
+          setdetailUserEmail(responseDetail.data.result.tempuser[0].tempuseremail);
+          setddetailUserInitial(responseDetail.data.result.tempuser[0].tempuserinitial);
+          setdetailUserNoteInternal(responseDetail.data.result.tempuser[0].tempusernoteinternal);
+          setdetailUserIsActive(responseDetail.data.result.tempuser[0].tempuserisactive);
+          setdetailUserLastEditTimestamp(responseDetail.data.result.tempuser[0].tempuserlastedittimestamp);
+          setdetailUserLastEditUsername(responseDetail.data.result.tempuser[0].tempuserlasteditusername);
+          setdetailUserCreateTimestamp(responseDetail.data.result.tempuser[0].tempusercreatetimestamp);
+          setdetailUserCreateUsername(responseDetail.data.result.tempuser[0].tempusercreateusername);
         })
     }
     fetchData();
@@ -172,11 +218,16 @@ const UserNew = () => {
   }
 
   const handleSave = () => {
+    //Decrypt ID
+    const userid = props.match.params.id;
+    const iduserutf8 = base64.decode(userid);
+    const iduserdecode = utf8.decode(iduserutf8);
+
     let requestStore = {
       "userindex": localStorage.getItem('tableuserindex'),
       "username": localStorage.getItem('tableusername'),
       "usertoken": localStorage.getItem('tableusertoken'),
-      "tableuserid": idUser,
+      "tableuserid": iduserdecode,
       "tableusername": detailUserName,
       "tableusernick": detailUserNick,
       "tableuseremail": detailUserEmail,

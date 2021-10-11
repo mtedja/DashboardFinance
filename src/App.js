@@ -19,7 +19,7 @@ function App() {
     return <LoadPanel visible={true} />;
   }
 
-  console.log(userNick);
+  // console.log(userNick);
 
   // if (user) {
   //   // console.log(user);
